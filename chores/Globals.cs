@@ -11,6 +11,6 @@ global using Dapper;
 global using CodeWorks.Utils;
 
 // APPLICATION SPECIFIC
-global using chores.Repositories;
+global using chore.Repositories;
 global using chores.Services;
-global using chores.Models;
+global using chore.Models;
