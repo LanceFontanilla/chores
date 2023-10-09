@@ -1,6 +1,7 @@
 
-using chore.Models;
-namespace chores.Services;
+using System.Data.Common;
+
+namespace chores.Controllers;
 
 [ApiController]
 [Route("api/chores")]
@@ -19,6 +20,20 @@ public class ChoresController : ControllerBase
         return "hey this is working!";
     }
 
+    [HttpGet("{choreId}")]
+    public ActionResult<Chore> GetOneChoreById(int choreId)
+    {
+        try
+        {
+            Chore chore = _choresService.GetOneChoreById(choreId);
+            return Ok(chore);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
     [HttpGet]
     public ActionResult<List<Chore>> GetChores()
     {
@@ -30,6 +45,33 @@ public class ChoresController : ControllerBase
         catch (Exception e)
         {
             return BadRequest(e.Message);
+        }
+    }
+    [HttpPost]
+    public ActionResult<Chore> CreateChore([FromBody] Chore choreData)
+    {
+        try
+        {
+            Chore chore = _choresService.CreateChore(choreData);
+            return Ok(chore);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpDelete("{choreId}")]
+    public ActionResult<string> RemoveChore(int choreId)
+    {
+        try
+        {
+            string message = _choresService.RemoveChore(choreId);
+            return Ok(message);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
         }
     }
 }
